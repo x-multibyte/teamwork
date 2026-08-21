@@ -1,12 +1,15 @@
 {
-    "name": "mpociot/teamwork",
+    "name": "electrik/teamwork",
+    "version": "11.0.0",
     "license": "MIT",
-    "description": "User to Team associations for the Laravel 5 Framework",
+    "description": "Electrik fork of mpociot/teamwork — user/team associations with invites for Laravel 10–13.",
     "keywords": [
         "Teams",
-        "Invite"
+        "Invite",
+        "Laravel",
+        "Electrik"
     ],
-    "homepage": "http://github.com/mpociot/teamwork",
+    "homepage": "https://github.com/electrikhq/teamwork",
     "authors": [
         {
             "name": "Marcel Pociot",
@@ -15,23 +18,29 @@
         {
             "name": "Oliver Kaufmann",
             "email": "okaufmann91@gmail.com"
+        },
+        {
+            "name": "neerajsohal",
+            "email": "hello@neerajkumar.name"
         }
     ],
     "support": {
-        "issues": "https://github.com/mpociot/teamwork/issues",
-        "source": "https://github.com/mpociot/teamwork"
+        "issues": "https://github.com/electrikhq/teamwork/issues",
+        "source": "https://github.com/electrikhq/teamwork"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": "^8.0",
-        "laravel/framework": "^9.0|^10.0|^11.0|^12.0"
+        "php": "^8.2",
+        "illuminate/support": "^10.0|^11.0|^12.0|^13.0",
+        "illuminate/database": "^10.0|^11.0|^12.0|^13.0",
+        "illuminate/auth": "^10.0|^11.0|^12.0|^13.0",
+        "illuminate/contracts": "^10.0|^11.0|^12.0|^13.0"
     },
     "require-dev": {
-        "mockery/mockery": "^1.5.1",
-        "illuminate/database": "^9.0|^10.0|^11.0|^12.0",
-        "orchestra/testbench": "^7.0|^8.0|^9.0|^10.0",
-        "doctrine/dbal": "^2.10|^3.5|^4.2"
+        "mockery/mockery": "^1.6",
+        "orchestra/testbench": "^8.0|^9.0|^10.0|^11.0",
+        "phpunit/phpunit": "^10.0|^11.0|^12.0"
     },
     "config": {
         "optimize-autoloader": true,
@@ -56,6 +65,9 @@
             "aliases": {
                 "Teamwork": "Mpociot\\Teamwork\\Facades\\Teamwork"
             }
+        },
+        "branch-alias": {
+            "dev-main": "11.0.x-dev"
         }
     }
 }

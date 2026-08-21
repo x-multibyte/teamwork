@@ -2,8 +2,8 @@
 
 namespace Mpociot\Teamwork;
 
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Foundation\Application;
 use Mpociot\Teamwork\Events\UserInvitedToTeam;
 
 class Teamwork
@@ -11,14 +11,12 @@ class Teamwork
     /**
      * Laravel application.
      *
-     * @var \Illuminate\Foundation\Application
+     * @var \Illuminate\Contracts\Foundation\Application
      */
     public $app;
 
     /**
      * Create a new Teamwork instance.
-     *
-     * @param \Illuminate\Foundation\Application $app
      */
     public function __construct(Application $app)
     {
@@ -30,7 +28,7 @@ class Teamwork
      */
     public function user()
     {
-        return $this->app->auth->user();
+        return $this->app['auth']->user();
     }
 
     /**
@@ -39,13 +37,13 @@ class Teamwork
      *
      * If no team is given, the current_team_id will be used instead.
      *
-     * @param string|User $user
-     * @param null|Team $team
-     * @param callable $success
+     * @param  string|object  $user
+     * @param  null|object|array|int  $team
      * @return TeamInvite
+     *
      * @throws \Exception
      */
-    public function inviteToTeam($user, $team = null, callable $success = null)
+    public function inviteToTeam($user, $team = null, ?callable $success = null)
     {
         if (is_null($team)) {
             $team = $this->user()->current_team_id;
@@ -83,8 +81,8 @@ class Teamwork
     /**
      * Checks if the given email address has a pending invite for the
      * provided Team.
-     * @param $email
-     * @param Team|array|int $team
+     *
+     * @param  object|array|int  $team
      * @return bool
      */
     public function hasPendingInvite($email, $team)
@@ -100,7 +98,6 @@ class Teamwork
     }
 
     /**
-     * @param $token
      * @return mixed
      */
     public function getInviteFromAcceptToken($token)
@@ -108,9 +105,6 @@ class Teamwork
         return $this->app->make(Config::get('teamwork.invite_model'))->where('accept_token', '=', $token)->first();
     }
 
-    /**
-     * @param TeamInvite $invite
-     */
     public function acceptInvite(TeamInvite $invite)
     {
         $this->user()->attachTeam($invite->team);
@@ -118,7 +112,6 @@ class Teamwork
     }
 
     /**
-     * @param $token
      * @return mixed
      */
     public function getInviteFromDenyToken($token)
@@ -126,9 +119,6 @@ class Teamwork
         return $this->app->make(Config::get('teamwork.invite_model'))->where('deny_token', '=', $token)->first();
     }
 
-    /**
-     * @param TeamInvite $invite
-     */
     public function denyInvite(TeamInvite $invite)
     {
         $invite->delete();
