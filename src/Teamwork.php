@@ -66,8 +66,8 @@ class Teamwork
         $invite->team_id = $team;
         $invite->type = 'invite';
         $invite->email = $email;
-        $invite->accept_token = md5(uniqid(microtime()));
-        $invite->deny_token = md5(uniqid(microtime()));
+        $invite->accept_token = \Illuminate\Support\Str::random(40);
+        $invite->deny_token = \Illuminate\Support\Str::random(40);
         $invite->save();
 
         if (! is_null($success)) {
