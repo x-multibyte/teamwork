@@ -73,20 +73,20 @@ class TeamworkTeamTraitTest extends \PHPUnit\Framework\TestCase
 
     public function testHasUser()
     {
-        $stub = m::mock('\Mpociot\Teamwork\Tests\Feature\TestUserTeamTraitStub[users,first]');
+        $stub = m::mock('\Mpociot\Teamwork\Tests\Feature\TestUserTeamTraitStub[users,whereKey,exists]');
 
         $user = m::mock('\Mpociot\Teamwork\Tests\Feature\TestUser[getKey]');
         $user->shouldReceive('getKey')
             ->once()
             ->andReturn('key');
 
-        $stub->shouldReceive('first')
+        $stub->shouldReceive('exists')
             ->once()
             ->andReturn(true);
 
-        $stub->shouldReceive('where')
+        $stub->shouldReceive('whereKey')
             ->once()
-            ->with('user_id', '=', 'key')
+            ->with('key')
             ->andReturnSelf();
 
         $stub->shouldReceive('users')
@@ -97,20 +97,20 @@ class TeamworkTeamTraitTest extends \PHPUnit\Framework\TestCase
 
     public function testHasUserReturnsFalse()
     {
-        $stub = m::mock('\Mpociot\Teamwork\Tests\Feature\TestUserTeamTraitStub[users,first]');
+        $stub = m::mock('\Mpociot\Teamwork\Tests\Feature\TestUserTeamTraitStub[users,whereKey,exists]');
 
         $user = m::mock('\Mpociot\Teamwork\Tests\Feature\TestUser[getKey]');
         $user->shouldReceive('getKey')
             ->once()
             ->andReturn('key');
 
-        $stub->shouldReceive('first')
+        $stub->shouldReceive('exists')
             ->once()
             ->andReturn(false);
 
-        $stub->shouldReceive('where')
+        $stub->shouldReceive('whereKey')
             ->once()
-            ->with('user_id', '=', 'key')
+            ->with('key')
             ->andReturnSelf();
 
         $stub->shouldReceive('users')

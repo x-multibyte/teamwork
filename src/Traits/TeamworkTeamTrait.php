@@ -49,6 +49,7 @@ trait TeamworkTeamTrait
      */
     public function hasUser(Model $user)
     {
-        return $this->users()->where($user->getKeyName(), '=', $user->getKey())->first() ? true : false;
+        // whereKey qualifies the users.id column so MySQL joins on team_user stay unambiguous.
+        return $this->users()->whereKey($user->getKey())->exists();
     }
 }

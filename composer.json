@@ -1,6 +1,6 @@
 {
     "name": "electrik/teamwork",
-    "version": "11.0.0",
+    "version": "11.0.1",
     "license": "MIT",
     "description": "Electrik fork of mpociot/teamwork — user/team associations with invites for Laravel 10–13.",
     "keywords": [
