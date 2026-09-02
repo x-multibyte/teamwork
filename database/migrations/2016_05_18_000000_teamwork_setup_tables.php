@@ -54,7 +54,23 @@ return new class extends Migration
         Schema::dropIfExists(Config::get('teamwork.team_invites_table'));
         Schema::dropIfExists(Config::get('teamwork.teams_table'));
 
-        Schema::table(Config::get('teamwork.users_table'), function (Blueprint $table) {
+        $usersTable = Config::get('teamwork.users_table');
+
+        if (! Schema::hasColumn($usersTable, 'current_team_id')) {
+            return;
+        }
+
+        // SQLite cannot drop an indexed column in one rebuild step — drop the
+        // index first, then the column (separate Schema::table calls).
+        try {
+            Schema::table($usersTable, function (Blueprint $table) {
+                $table->dropIndex(['current_team_id']);
+            });
+        } catch (\Throwable) {
+            // Index may already be absent on MySQL/Postgres variants.
+        }
+
+        Schema::table($usersTable, function (Blueprint $table) {
             $table->dropColumn('current_team_id');
         });
     }
